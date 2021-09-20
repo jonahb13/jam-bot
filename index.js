@@ -1,24 +1,16 @@
-const { Client, Intents } = require('discord.js');
-const { token, prefix } = require('./config.json');
+const { Client } = require("discord.js");
+const { token } = require("./config.json");
+const { ClientOptions } = require("./utils/clientOptions.js");
 
 
-const client = new Client({
-    restTimeOffset: 0,
-    intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-    ],
-    presence: {
-        activities: [{
-            name: 'Smooth Beats',
-            type: 'LISTENING'
-        }], 
-        status: 'dnd'
-    }
-});
-
+const client = new Client(ClientOptions);
 client.login(token);
 
-client.on('ready', () => {
+client.on("ready", () => {
     console.log(`Logged into: ${client.user.tag}`);
 });
+
+client.on("interactionCreate", async (interaction) => {
+    if(!interaction.isCommand()) return;
+
+})
